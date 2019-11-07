@@ -1,0 +1,213 @@
+// 默认样式 start
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+
+::-webkit-scrollbar{//scroll滚动条设置
+    width: 0px; height: 0px;background-color: #fff;  
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+    font-style: normal;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: couriernew, courier, monospace;
+}
+
+small {
+    font-size: 12px;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    color: #f58a00;
+    font-size: 12px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #0d8abf;
+}
+
+sup {
+    vertical-align: text-top;
+}
+
+sub {
+    vertical-align: text-bottom;
+}
+
+legend {
+    color: #000;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+html {
+    box-sizing: border-box;
+    font: 14px / 1.42857 "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+    // background-color: #eee;
+    color: #2c3e50;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+// 默认样式 end
+#app {
+    // font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------ 公共样式 start ------------ */
+// 左浮动
+.fl {
+    float: left;
+}
+
+// 右浮动
+.fr {
+    float: right;
+}
+
+// 清除浮动
+.clearfix::after,
+.clearfix::before {
+    display: table;
+    content: "";
+}
+
+.clearfix::after {
+    clear: both;
+}
+
+// .clearfix::after {
+//     display: block;
+//     clear: both;
+//     visibility: hidden;
+//     height: 0;
+//     content: " ";
+// }
+
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.pl20 {
+    padding-left: 20px;
+}
+
+.w200 {
+    width: 200px;
+}
+
+
+.arrow-green {
+    color: #0f990f;
+}
+
+.arrow-red {
+    color: #f54545;
+}
+
+// 单行文字省略
+.one-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// 多行文字省略
+.ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+// 变色虚线
+.discoloration-line {
+    width: 100%;
+    height: 3px;
+    background-image: repeating-linear-gradient(135deg, #FF3300, #FF3300 5%, #fff 2.5%, #fff 7.5%, #1a73e8 7.5%, #1a73e8 12.5%, #fff 12.5%, #fff 15%);
+}
