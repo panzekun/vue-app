@@ -1,6 +1,6 @@
 <template>
   <div class="warp">
-    <Item
+    <tabbar-item
       :data="item"
       @changePage="getVal"
       v-for="item in tabbarDes"
@@ -9,17 +9,17 @@
     >
       <img :src="item.normal" slot="normalImg" />
       <img :src="item.active" slot="activeImg" />
-    </Item>
+    </tabbar-item>
   </div>
 </template>
 <script type="text/javascript">
-  import Item from "./tabbaritem.vue";
+  import tabbarItem from "./tabbaritem.vue";
   export default {
     name: "tabber",
     components: {
-      Item
+      tabbarItem
     },
-    data: function() {
+    data() {
       return {
         selected: 1,
         tabbarDes: [
@@ -69,7 +69,6 @@
         this.selected = id;
       },
       getPath() {
-        console.dir(this.$route.meta);
         this.selected = this.$route.meta.id; //解决页面返回，底部Tab高亮不对的问题
       }
     }

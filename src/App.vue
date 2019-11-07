@@ -5,12 +5,12 @@
       <router-view class="Router"></router-view>
       <!-- </keep-alive> -->
     </transition>
-    <Tabbar class="footer-mTabbar" v-if="isShowTabbar"></Tabbar>
+    <tabbar class="footer-mTabbar" v-if="isShowTabbar"></tabbar>
   </div>
 </template>
 
 <script>
-  import Tabbar from "@/components/tabbar";
+  import Tabbar from "@/components/tabbar/index";
 
   export default {
     name: "app",
@@ -33,7 +33,8 @@
         }
         this.$router.isBack = false;
       }
-    }
+    },
+    created() {}
   };
 </script>
 

@@ -40,7 +40,7 @@ module.exports = {
       // 配置解析别名
       alias: {
         '@': path.resolve(__dirname, './src'),
-        // '@h': path.resolve(__dirname, './src/assets/hotcss'),
+        '@c': path.resolve(__dirname, './src/components'),
         '@s': path.resolve(__dirname, './src/assets/style'),
         '@i': path.resolve(__dirname, './src/assets/images'),
       }
