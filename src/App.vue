@@ -11,7 +11,11 @@
 
 <script>
   import Tabbar from "@/components/tabbar/index";
-
+  // 软键盘关闭事件
+  document.body.addEventListener("focusout", () => {
+    // 回到原点  \
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  });
   export default {
     name: "app",
     components: { Tabbar },

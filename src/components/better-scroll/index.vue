@@ -121,7 +121,6 @@
 
         // 是否派发顶部下拉事件，用于下拉刷新
         if (this.pulldown) {
-          console.log('派发下拉刷新')
           this.scroll.on("touchEnd", pos => {
             // 下拉动作
             if (pos.y > 50) {
