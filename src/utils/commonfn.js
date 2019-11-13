@@ -201,5 +201,12 @@ export function wSystemtype() {
     return 'windows'
   }
 }
+/**
+ * **获取两个数之间的随机整数** <br/>
+ * @returns {Number}
+*/
+export function getRandomNumberByRange(start, end) {
+  return Math.floor(Math.random() * (end - start) + start)
+}
 
 

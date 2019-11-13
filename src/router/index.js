@@ -17,10 +17,10 @@ const router = new Router({
     },
     {
       // 分类
-      path: '/goodsDetails',
-      name: 'goodsDetails',
-      meta: { id: 2, title: '购物车' },
-      component: () => import('@/views/goodsDetails')
+      path: '/category',
+      name: 'category',
+      meta: { id: 2, title: '分类' },
+      component: () => import('@/views/category/index')
     }, {
       // 购物车
       path: '/shoppingCart',

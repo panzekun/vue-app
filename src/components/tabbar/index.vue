@@ -33,7 +33,7 @@
           },
           {
             id: 2,
-            path: "/goodsDetails",
+            path: "/category",
             title: "分类",
             icon: "shop",
             normal: require("@i/tab-cate.png"),

@@ -60,6 +60,7 @@
       top: 0;
       transition: all 0.35s ease;
       will-change: transform;
+      overflow-y: auto;
       // backface-visibility: hidden;
       // perspective: 1000;
     }
@@ -78,9 +79,6 @@
       position: absolute;
       bottom: 0;
     }
-    // 去掉滚动条
-    &::-webkit-scrollbar {
-      display: none;
-    }
+   
   }
 </style>

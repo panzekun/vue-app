@@ -25,7 +25,6 @@
     "@vue/cli-plugin-unit-mocha": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
-    "babel-plugin-import": "^1.12.2",
     "chai": "^4.1.2",
     "postcss-px-to-viewport": "^1.1.1",
     "sass": "^1.19.0",
