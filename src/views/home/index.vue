@@ -1,112 +1,118 @@
 <template>
   <div ref="scroll">
     <div class="home">
-      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-        <!-- 头部搜素 -->
-        <header>
-          <van-row type="flex" justify="space-around" align="center">
-            <van-icon name="scan" />
-            <van-search placeholder="请输入搜索关键词" v-model="searchValue" />
-            <van-icon name="chat-o" />
-          </van-row>
-        </header>
-        <!-- 轮播图 -->
-        <div class="swipe">
-          <van-swipe class="goods-swipe" :autoplay="3000" @change="onChange">
-            <van-swipe-item v-for="swiper in swiperList" :key="swiper.id">
-              <img :src="swiper.img" />
-            </van-swipe-item>
-            <div class="indicator" slot="indicator">
-              <div
-                class="dots"
-                v-for="(swiper, index) in swiperList"
-                :class="[current >= index ? 'on' : '']"
-                :key="index"
-              ></div>
-            </div>
-          </van-swipe>
-        </div>
-        <!-- 分类列表 -->
-        <div class="category-list">
-          <div
-            class="category"
-            v-for="(row, index) in categoryList"
-            :key="index"
-            @click="toCategory(row)"
-          >
-            <div class="img">
-              <img :src="row.img" alt />
-            </div>
-            <div class="text">{{ row.name }}</div>
+      <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh" class="pull-refresh"> -->
+      <!-- 头部搜素 -->
+      <header>
+        <van-row type="flex" justify="space-around" align="center">
+          <van-icon name="scan" />
+          <div class="search">
+            <van-icon name="search" />
+            <input type="text" placeholder="请输入关键字" />
           </div>
+          <van-icon name="chat-o" />
+        </van-row>
+      </header>
+      <!-- 轮播图 -->
+      <div class="swiper">
+        <van-swipe :autoplay="3000" @change="onChange">
+          <van-swipe-item v-for="swiper in swiperList" :key="swiper.id">
+            <img :src="swiper.img" />
+          </van-swipe-item>
+          <div class="indicator" slot="indicator">
+            <div
+              class="dots"
+              v-for="(swiper, index) in swiperList"
+              :class="[current >= index ? 'on' : '']"
+              :key="index"
+            ></div>
+          </div>
+        </van-swipe>
+      </div>
+      <!-- 分类列表 -->
+      <div class="category-list">
+        <div
+          class="category"
+          v-for="(row, index) in categoryList"
+          :key="index"
+          @click="toCategory(row)"
+        >
+          <div class="img">
+            <img :src="row.img" alt />
+          </div>
+          <div class="text">{{ row.name }}</div>
         </div>
-        <!-- 广告图 -->
-        <div class="banner">
+      </div>
+      <!-- 广告图 -->
+      <div class="banner">
+        <div class="img-box">
           <img src="@/assets/img/banner.jpg" />
         </div>
-        <!-- 活动区 -->
-        <div class="promotion">
-          <div class="text">优惠专区</div>
-          <div class="list">
-            <div
-              class="column"
-              v-for="(row, index) in Promotion"
-              @click="toPromotion(row)"
-              :key="index"
-            >
-              <div class="top">
-                <div class="title">{{ row.title }}</div>
-                <div class="countdown" v-if="row.countdown">
-                  <div>{{ row.countdown.h }}</div>:
-                  <div>{{ row.countdown.m }}</div>:
-                  <div>{{ row.countdown.s }}</div>
-                </div>
+      </div>
+      <!-- 活动区 -->
+      <div class="promotion">
+        <div class="text">优惠专区</div>
+        <div class="list">
+          <div
+            class="column"
+            v-for="(row, index) in Promotion"
+            @click="toPromotion(row)"
+            :key="index"
+          >
+            <div class="top">
+              <div class="title">{{ row.title }}</div>
+              <div class="countdown" v-if="row.countdown">
+                <div>{{ row.countdown.h }}</div>:
+                <div>{{ row.countdown.m }}</div>:
+                <div>{{ row.countdown.s }}</div>
               </div>
-              <div class="left">
-                <div class="ad">{{ row.ad }}</div>
-                <div class="into">点击进入</div>
-              </div>
-              <div class="right">
-                <img :src="row.img" />
-              </div>
+            </div>
+            <div class="left">
+              <div class="ad">{{ row.ad }}</div>
+              <div class="into">点击进入</div>
+            </div>
+            <div class="right">
+              <img :src="row.img" />
             </div>
           </div>
         </div>
-        <!-- 商品列表 -->
-        <div class="goods-list">
-          <div class="title">
-            <img src="@/assets/img/hua.png" />
-            猜你喜欢
-            <img src="@/assets/img/hua.png" />
-          </div>
-          <div class="product-list">
-            <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-              <van-list v-model="loading" :finished="finished" @load="onLoad">
-                <div
-                  class="product"
-                  v-for="(product,index) in productList"
-                  :key="index"
-                  @click="toGoods(product)"
-                >
-                  <img mode="widthFix" :src="product.img" />
-                  <div class="name">{{ product.name }}</div>
-                  <div class="info">
-                    <div class="price">{{ product.price }}</div>
-                    <div class="slogan">{{ product.slogan }}</div>
-                  </div>
-                </div>
-              </van-list>
-            </van-pull-refresh>
-          </div>
-          <div class="loading-text" v-if="finished">没有更多数据了</div>
+      </div>
+      <!-- 商品列表 -->
+      <div class="goods-list">
+        <div class="title">
+          <img src="@/assets/img/hua.png" />
+          猜你喜欢
+          <img src="@/assets/img/hua.png" />
         </div>
-      </van-pull-refresh>
+        <div class="product-list">
+          <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+            <van-list v-model="loading" :finished="finished" @load="onLoad">
+              <div
+                class="product"
+                v-for="(product,index) in productList"
+                :key="index"
+                @click="toGoods(product)"
+              >
+                <img mode="widthFix" :src="product.img" />
+                <div class="name">{{ product.name }}</div>
+                <div class="info">
+                  <div class="price">{{ product.price }}</div>
+                  <div class="slogan">{{ product.slogan }}</div>
+                </div>
+              </div>
+            </van-list>
+          </van-pull-refresh>
+        </div>
+        <div class="loading-text" v-if="finished">没有更多数据了</div>
+      </div>
+      <!-- </van-pull-refresh> -->
     </div>
   </div>
 </template>
 
 <script>
   import { getRandomNumberByRange } from "@/utils/commonfn";
+  import API from "@/api/login";
   export default {
     name: "home",
     components: {},
@@ -216,6 +222,10 @@
       //开启定时器
       this.Timer();
       this.loadPromotion();
+      // 获取首页轮播图---接口调试
+      // API.getSwierList().then(res=>{
+      //   console.log(res)
+      // })
     },
     mounted() {
       // 监听页面滚动
@@ -263,7 +273,9 @@
         // }
       },
       //商品跳转
-      toGoods(row) {},
+      toGoods(row) {
+        this.$router.push(`/goodsDetails/${row.goods_id}`)
+      },
       loadPromotion() {
         let cutTime = new Date();
         let yy = cutTime.getFullYear(),
@@ -354,7 +366,7 @@
       },
       toPromotion(row) {},
       toCategory(row) {
-          this.$toast(`点击了${row.name}`);
+        this.$toast(`点击了${row.name}`);
       },
       onChange(index) {
         this.current = index;
@@ -364,19 +376,58 @@
 </script>
 <style lang='scss' scoped>
   .home {
+    height: 100%;
+    padding-top: 80px;
+    overflow-y: auto;
     header {
+      position: fixed;
+      top: 0;
+      width: 100%;
       padding: 0 20px;
+      z-index: 99;
+      background: linear-gradient(
+          135deg,
+          red,
+          yellow,
+          rgb(23, 243, 7),
+          #09f,
+          pink
+        )
+        left center/400% 400%;
+      animation: move 10s infinite;
       .van-search__content {
         border-radius: 17px;
       }
-      .van-search {
-        flex: 1;
-      }
+      // .van-search {
+      //   flex: 1;
+      // }
       .van-icon {
         font-size: 20px;
       }
+      .search {
+        position: relative;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px 50px;
+        // margin: 0 20px;
+        .van-icon-search {
+          position: absolute;
+          left: 30px;
+        }
+        input {
+          flex: 1;
+          height: 50px;
+          border: 1px solid #fff;
+          border-radius: 25px;
+          background-color: #fff;
+          text-indent: 80px;
+        }
+      }
     }
-    .swipe {
+
+    .swiper {
       position: relative;
       width: 100%;
       .van-swipe {
@@ -472,6 +523,45 @@
     .banner {
       width: 92%;
       margin: 40px 4%;
+      .img-box {
+        position: relative;
+        width: 100%;
+        height: 150px;
+        border-radius: 80px;
+        &::before {
+          content: "";
+          position: absolute;
+          width: calc(100% + 6%);
+          height: 180px;
+          border-radius: 100px;
+          top: -15px;
+          left: -3%;
+          z-index: -1;
+          background-image: linear-gradient(
+            60deg,
+            red,
+            cornflowerblue,
+            yellow,
+            hotpink,
+            salmon,
+            lightgreen,
+            sandybrown,
+            violet
+          );
+          background-size: 300%;
+          animation: animate_bg 5s infinite;
+        }
+        @keyframes animate_bg {
+          0%,
+          100% {
+            background-position: 0%, 50%;
+          }
+
+          50% {
+            background-position: 100%, 50%;
+          }
+        }
+      }
       img {
         width: 100%;
         height: 20vw;

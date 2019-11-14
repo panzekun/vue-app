@@ -183,7 +183,12 @@ body {
 //     content: " ";
 // }
 
-
+input {
+    background: none;
+    outline: none;
+    border: none;
+    caret-color: red; //光标颜色
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -232,6 +237,46 @@ input[type="number"] {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+}
+// 遮罩层动画
+@keyframes showPopup {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes hidePopup {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes showLayer {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes hideLayer {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 // 变色虚线

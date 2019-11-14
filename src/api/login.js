@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 
 const api = {
-  // 接口1
-  login(data) {
-    return request('user/login', data)
+  // 获取首页录播图
+  getSwierList(data) {
+    return request('/getSwierList', data)
   },
 }
 

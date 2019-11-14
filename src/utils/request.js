@@ -1,22 +1,24 @@
 import axios from 'axios'
 import router from '@/router'
-
+import Vue from 'vue';
+import { Toast } from 'vant';
+Vue.use(Toast);
 // 全局设置头部信息
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 // // 请求超时
 // axios.defaults.timeout = 5000
 // // 这个是接口地址, 打包所有的都是自动配置的
-// axios.baseURL = process.env.VUE_APP_FLAG
+// axios.baseURL = process.env.VUE_APP_URL
 // process.env.SERVER_VARIETY  //环境名称
 // 一些请求的基本配置 
 const service = axios.create({
-  baseURL: process.env.VUE_APP_FLAG,// 接口的域名地址
+  baseURL: process.env.VUE_APP_URL,// 接口的域名地址
   timeout: 5000,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json;charset=utf-8' }
 })
 // http request 拦截器
-axios.interceptors.request.use(
+service.interceptors.request.use(
   config => {
     // // 可以在这里拼接
     // config.url = '/api' + config.url
@@ -26,7 +28,7 @@ axios.interceptors.request.use(
     // config.headers.Authorization = mytoken
     // config.headers.Token = mytoken
     // }
-    console.dir(config);
+    // console.log(config);
     return config
   },
   error => {
@@ -35,7 +37,7 @@ axios.interceptors.request.use(
   }
 )
 // http response 拦截响应
-axios.interceptors.response.use(
+service.interceptors.response.use(
   response => {
     const { data, status } = response
     if (status == 200) {
@@ -68,8 +70,13 @@ export default function request(url, data = {}, method = 'post') {
     }
     service(options)
       .then(res => {
-        console.log('返回数据', res)
-        resolve(res.data)
+        // console.log('返回数据', res)
+        if (!res.success) {
+          Toast.fail('网络错误，请稍后再试');
+        } else {
+          resolve(res)
+        }
+
       })
       .catch(error => {
         reject()

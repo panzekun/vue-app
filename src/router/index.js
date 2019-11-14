@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
-
 const router = new Router({
   routes: [
 
@@ -12,27 +11,35 @@ const router = new Router({
       // 首页
       path: '/home',
       name: 'home',
-      meta: { id: 1, title: '首页' },
+      meta: { id: 1, title: '首页',isShowFooter:true },
       component: () => import('@/views/home/index')
     },
     {
       // 分类
       path: '/category',
       name: 'category',
-      meta: { id: 2, title: '分类' },
+      meta: { id: 2, title: '分类',isShowFooter:true },
       component: () => import('@/views/category/index')
-    }, {
+    },
+    {
+      // 商品详情
+      path: '/goodsDetails/:id',
+      name: 'goodsDetails',
+      meta: { id: 999, title: '商品详情',isShowFooter:false },
+      component: () => import('@/views/goodsDetails/index')
+    },
+    {
       // 购物车
       path: '/shoppingCart',
       name: 'shoppingCart',
-      meta: { id: 3, title: '订单' },
+      meta: { id: 3, title: '订单',isShowFooter:true },
       component: () => import('@/views/shoppingCart')
     },
     {
       // 我的
       path: '/user',
       name: 'user',
-      meta: { id: 4, title: '我的' },
+      meta: { id: 4, title: '我的',isShowFooter:true },
       component: () => import('@/views/userCenter')
     },
     {

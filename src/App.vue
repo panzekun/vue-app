@@ -5,7 +5,7 @@
       <router-view class="Router"></router-view>
       <!-- </keep-alive> -->
     </transition>
-    <tabbar class="footer-mTabbar" v-if="isShowTabbar"></tabbar>
+    <tabbar class="footer-mTabbar" v-if="isShowFooter"></tabbar>
   </div>
 </template>
 
@@ -23,7 +23,7 @@
       return {
         keepAlive: "main-keep-alive", //需要缓存的页面 例如首页
         transitionName: "slide-left", //初始过渡动画方向
-        isShowTabbar: true //是否显示底部导航
+        isShowFooter: true //是否显示底部导航
       };
     },
     watch: {
@@ -36,6 +36,7 @@
           this.transitionName = "slide-left";
         }
         this.$router.isBack = false;
+        this.isShowFooter = to.meta.isShowFooter || false;
       }
     },
     created() {}
@@ -79,6 +80,5 @@
       position: absolute;
       bottom: 0;
     }
-   
   }
 </style>
