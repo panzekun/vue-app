@@ -85,25 +85,25 @@
           <img src="@/assets/img/hua.png" />
         </div>
         <div class="product-list">
-          <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-            <van-list v-model="loading" :finished="finished" @load="onLoad">
-              <div
-                class="product"
-                v-for="(product,index) in productList"
-                :key="index"
-                @click="toGoods(product)"
-              >
-                <img mode="widthFix" :src="product.img" />
-                <div class="name">{{ product.name }}</div>
-                <div class="info">
-                  <div class="price">{{ product.price }}</div>
-                  <div class="slogan">{{ product.slogan }}</div>
-                </div>
-              </div>
-            </van-list>
-          </van-pull-refresh>
+          <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh"> -->
+          <!-- <van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false> -->
+          <div
+            class="product"
+            v-for="(product,index) in productList"
+            :key="index"
+            @click="toGoods(product)"
+          >
+            <img mode="widthFix" :src="product.img" />
+            <div class="name ellipsis">{{ product.name }}</div>
+            <div class="info">
+              <div class="price">{{ product.price }}</div>
+              <div class="slogan">{{ product.slogan }}</div>
+            </div>
+          </div>
+          <!-- </van-list> -->
+          <!-- </van-pull-refresh> -->
         </div>
-        <div class="loading-text" v-if="finished">没有更多数据了</div>
+        <!-- <div class="loading-text" v-if="finished">没有更多数据了</div> -->
       </div>
       <!-- </van-pull-refresh> -->
     </div>
@@ -226,6 +226,7 @@
       // API.getSwierList().then(res=>{
       //   console.log(res)
       // })
+      console.log("测试取消console");
     },
     mounted() {
       // 监听页面滚动
@@ -246,6 +247,7 @@
           this.loading = false;
 
           if (this.productList.length >= 20) {
+            this.$toast("没有更多数据了");
             // 数据全部加载完成
             this.finished = true;
           }
@@ -262,7 +264,7 @@
           window.pageYOffset ||
           document.documentElement.scrollTop ||
           document.body.scrollTop;
-
+        console.log(scrollTop);
         // if (
         //   !!scrollTop &&
         //   scrollTop > 200
@@ -274,7 +276,7 @@
       },
       //商品跳转
       toGoods(row) {
-        this.$router.push(`/goodsDetails/${row.goods_id}`)
+        this.$router.push(`/goodsDetails/${row.goods_id}`);
       },
       loadPromotion() {
         let cutTime = new Date();
@@ -374,11 +376,19 @@
     }
   };
 </script>
-<style lang='scss' scoped>
+<style lang='scss' >
+  .Router {
+    height: 100vh !important;
+    overflow: hidden;
+  }
   .home {
     height: 100%;
     padding-top: 80px;
+    padding-bottom: 106px;
+    overflow-x: scroll;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; //ios允许独立的滚动区域和触摸回弹
+
     header {
       position: fixed;
       top: 0;
@@ -402,7 +412,7 @@
       //   flex: 1;
       // }
       .van-icon {
-        font-size: 20px;
+        font-size: 24px;
       }
       .search {
         position: relative;
@@ -423,6 +433,7 @@
           border-radius: 25px;
           background-color: #fff;
           text-indent: 80px;
+          font-size: 28px;
         }
       }
     }
@@ -442,12 +453,13 @@
         left: 20px;
         background-color: rgba(255, 255, 255, 0.4);
         width: 150px;
-        height: 5px;
+        height: 6px;
         border-radius: 3px;
         overflow: hidden;
         display: flex;
         .dots {
           width: 0;
+          height: 6px;
           background-color: rgb(235, 90, 6, 1);
           transition: all 0.3s ease-out;
           &.on {
@@ -682,6 +694,11 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        .van-list {
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+        }
         .product {
           width: 47%;
           border-radius: 20px;
@@ -695,11 +712,6 @@
           .name {
             width: 92%;
             padding: 10px 4%;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            text-align: justify;
-            overflow: hidden;
             font-size: 30px;
           }
           .info {
@@ -729,6 +741,9 @@
             flex-wrap: wrap;
           }
         }
+      }
+      .van-list__placeholder {
+        display: none !important;
       }
     }
   }

@@ -29,7 +29,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: 999;
     display: none;
     .mask {
@@ -43,15 +43,16 @@
     .layer {
       position: absolute;
       z-index: 22;
-      bottom: -70%;
+      bottom: -65%;
       width: 100%;
       padding: 0 4%;
-      height: 70%;
+      height: 65%;
       border-radius: 20px 20px 0 0;
       background-color: #fff;
       display: flex;
       flex-wrap: wrap;
-      align-content: space-between;
+      align-content: space-around;
+      // box-sizing: border-box;
     }
 
     &.show {

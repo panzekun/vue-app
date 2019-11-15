@@ -29,38 +29,6 @@ td {
 }
 
 
-::-webkit-scrollbar {
-    //scroll滚动条设置
-    width: 0px;
-    height: 0px;
-    background-color: #fff;
-}
-
-// 加载指示器... 
-.dot {
-    display: inline-block;
-    overflow: hidden;
-    height: 1em;
-    line-height: 1;
-    vertical-align: -.25em;
-
-    &::after {
-        display: block;
-        white-space: pre-wrap;
-        content: "...\A..\A.";
-        animation: loading 3s infinite step-start both;
-    }
-}
-
-@keyframes loading {
-    33% {
-        transform: translate3d(0, -2em, 0);
-    }
-
-    66% {
-        transform: translate3d(0, -1em, 0);
-    }
-}
 
 address,
 cite,
@@ -144,14 +112,7 @@ body {
     box-sizing: inherit;
 }
 
-// 默认样式 end
-#app {
-    // font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    width: 100%;
-    height: 100%;
-}
+
 
 /* ------------ 公共样式 start ------------ */
 // 左浮动
@@ -233,11 +194,24 @@ input[type="number"] {
 
 // 多行文字省略
 .ellipsis {
+    position: relative;
+    box-sizing: border-box;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+    // 解决padding会显示文字的bug
+    &::after {
+        position: absolute;
+        content: '';
+        height: 1px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: #fff;
+    }
 }
+
 // 遮罩层动画
 @keyframes showPopup {
     0% {
@@ -284,4 +258,43 @@ input[type="number"] {
     width: 100%;
     height: 3px;
     background-image: repeating-linear-gradient(135deg, #FF3300, #FF3300 5%, #fff 2.5%, #fff 7.5%, #1a73e8 7.5%, #1a73e8 12.5%, #fff 12.5%, #fff 15%);
+}
+
+::-webkit-scrollbar {
+    //scroll滚动条设置
+    width: 0px;
+    height: 0px;
+    background-color: #fff;
+}
+
+// 去掉ios文本框上内阴影
+input,
+textarea {
+    -webkit-appearance: none;
+}
+
+// 加载指示器... 
+.dot {
+    display: inline-block;
+    overflow: hidden;
+    height: 1em;
+    line-height: 1;
+    vertical-align: -.25em;
+
+    &::after {
+        display: block;
+        white-space: pre-wrap;
+        content: "...\A..\A.";
+        animation: dotloading 3s infinite step-start both;
+    }
+}
+
+@keyframes dotloading {
+    33% {
+        transform: translate3d(0, -2em, 0);
+    }
+
+    66% {
+        transform: translate3d(0, -1em, 0);
+    }
 }

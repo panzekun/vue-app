@@ -208,5 +208,13 @@ export function wSystemtype() {
 export function getRandomNumberByRange(start, end) {
   return Math.floor(Math.random() * (end - start) + start)
 }
+/**
+ * **两个对象相同Key赋值** <br/>
+ * @returns {Object}
+*/
+export function objectKeyValua(obj1, obj2) {
+  Object.keys(obj1).forEach(key => { obj1[key] = obj2[key] })
+  return obj1
+}
 
 

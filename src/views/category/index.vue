@@ -132,6 +132,9 @@
   };
 </script>
 <style lang='scss' scoped>
+  .van-sidebar-item {
+    font-size: 15px;
+  }
   .category {
     width: 100%;
     height: 100%;

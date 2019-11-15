@@ -18,6 +18,7 @@ module.exports = {
     port: 8082,
     open: true,
     https: false,
+    disableHostCheck: true,//映射穿透natapp
     overlay: {
       warnings: false,
       errors: true

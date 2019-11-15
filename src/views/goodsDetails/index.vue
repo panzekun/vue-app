@@ -82,7 +82,7 @@
     </div>
 
     <!-- 服务-模态层弹窗 -->
-    <popup :popupClass="serviceClass">
+    <popup :popupClass="serviceClass" @touchmove.prevent>
       <div class="ervice-content">
         <div class="row" v-for="(item,index) in goodsData.service" :key="index">
           <div class="title">{{item.name}}</div>
@@ -95,7 +95,7 @@
     </popup>
 
     <!-- 规格-模态层弹窗 -->
-    <popup :popupClass="specClass">
+    <popup :popupClass="specClass" @touchmove.prevent>
       <div class="spec-content">
         <div class="title">选择规格：</div>
         <div class="sp">
@@ -233,13 +233,16 @@
   };
 </script>
 <style lang='scss' scoped>
-  #app .Router {
-    height: 100vh;
+  .Router {
+    height: 100vh !important;
+    overflow: hidden;
     .goodsDetails {
-      position: relative;
+      position: absolute;
       width: 100%;
-      height: calc(100vh - 100px);
+      height: calc(100% - 106px);
+      overflow-x: scroll;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch; //ios允许独立的滚动区域和触摸回弹
       background-color: #eee;
       .swiper {
         position: relative;
@@ -453,6 +456,7 @@
       }
     }
     .spec-content {
+      width: 100%;
       .title {
         font-size: 30px;
         margin: 30px 0;
@@ -529,7 +533,8 @@
       height: 100px;
       bottom: 0;
       .van-goods-action {
-        position: fixed;
+        position: absolute;
+        bottom: 0;
         padding: 0 5px;
       }
     }

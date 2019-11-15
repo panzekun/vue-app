@@ -39,7 +39,7 @@
         this.isShowFooter = to.meta.isShowFooter || false;
       }
     },
-    created() {}
+    mounted() {}
   };
 </script>
 
@@ -49,19 +49,18 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     width: 100%;
-    height: 100%;
+    // min-height: 100%;
     margin: auto;
     position: relative;
-    overflow: hidden;
 
     .Router {
-      position: absolute;
+      position: absolute; //解决滑动出现白屏的问题
       width: 100%;
-      height: calc(100vh - 102px);
+      height: auto;
+      // height: calc(1334px - 102px);
       top: 0;
       transition: all 0.35s ease;
       will-change: transform;
-      overflow-y: auto;
       // backface-visibility: hidden;
       // perspective: 1000;
     }
@@ -77,7 +76,7 @@
       transform: translate3d(100%, 0, 0);
     }
     .footer-mTabbar {
-      position: absolute;
+      position: fixed;
       bottom: 0;
     }
   }
