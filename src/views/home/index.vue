@@ -45,6 +45,7 @@
       </div>
       <!-- 广告图 -->
       <div class="banner">
+        <MarqueeUp />
         <div class="img-box">
           <img src="@/assets/img/banner.jpg" />
         </div>
@@ -93,7 +94,7 @@
             :key="index"
             @click="toGoods(product)"
           >
-            <img mode="widthFix" :src="product.img" />
+            <img :src="product.img" />
             <div class="name ellipsis">{{ product.name }}</div>
             <div class="info">
               <div class="price">{{ product.price }}</div>
@@ -113,9 +114,10 @@
 <script>
   import { getRandomNumberByRange } from "@/utils/commonfn";
   import API from "@/api/login";
+  import MarqueeUp from "@/components/MarqueeUp/index";
   export default {
     name: "home",
-    components: {},
+    components: { MarqueeUp },
     data() {
       return {
         searchValue: "",
@@ -222,10 +224,7 @@
       //开启定时器
       this.Timer();
       this.loadPromotion();
-      // 获取首页轮播图---接口调试
-      // API.getSwierList().then(res=>{
-      //   console.log(res)
-      // })
+
       console.log("测试取消console");
     },
     mounted() {
@@ -233,6 +232,13 @@
       this.$refs.scroll.addEventListener("scroll", this.handleScroll);
     },
     methods: {
+      // 获取首页轮播图---接口调试
+      getSwierList() {
+        return API.getSwierList().then(res => {
+          console.log(res);
+          return res;
+        });
+      },
       //上拉加载
       onLoad() {
         setTimeout(() => {
@@ -367,7 +373,10 @@
         }, 1000);
       },
       toPromotion(row) {},
-      toCategory(row) {
+      async toCategory(row) {
+        const res = await this.getSwierList();
+        console.log("数据回来了");
+        console.log(res);
         this.$toast(`点击了${row.name}`);
       },
       onChange(index) {
@@ -423,11 +432,11 @@
         padding: 15px 50px;
         // margin: 0 20px;
         .van-icon-search {
-          position: absolute;
+          // position: absolute;
           left: 30px;
         }
         input {
-          flex: 1;
+          width: 100%;
           height: 50px;
           border: 1px solid #fff;
           border-radius: 25px;
@@ -539,6 +548,7 @@
         position: relative;
         width: 100%;
         height: 150px;
+        margin-top: 20px;
         border-radius: 80px;
         &::before {
           content: "";

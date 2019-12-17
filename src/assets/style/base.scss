@@ -185,6 +185,98 @@ input[type="number"] {
     color: #f54545;
 }
 
+// 多选框
+.zk-checkbox:checked {
+    background: #00aafe;
+}
+
+.zk-checkbox {
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border: solid 1px #dddddd;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    margin: 0 5px 0 0;
+    padding: 0;
+    font-size: 30px;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    cursor: default;
+    -webkit-appearance: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-transition: background-color ease 0.1s;
+    transition: background-color ease 0.1s;
+}
+
+.zk-checkbox:checked::after {
+    content: '';
+    top: 10px;
+    left: 10px;
+    position: absolute;
+    background: transparent;
+    border: #fff solid 2px;
+    border-top: none;
+    border-right: none;
+    height: 10px;
+    width: 16px;
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+/* *  单选按钮 */
+.zk-radio {
+    position: relative;
+    width: 20px;
+    height: 0px;
+    top: -8px;
+    background-color: #000;
+    border-radius: 50%;
+}
+
+.zk-radio:before,
+.zk-radio:after {
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    transition: 0.3s ease;
+}
+
+.zk-radio:before {
+    top: 0px;
+    left: 0px;
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    // border: 1px solid #1485FD;
+    border: 1px solid #ccc;
+}
+
+.zk-radio:after {
+    top: 6px;
+    left: 6px;
+    width: 7px;
+    height: 7px;
+    background-color: #fff;
+}
+
+.zk-radio:checked:after {
+    top: 4px;
+    left: 4px;
+    width: 7px;
+    height: 7px;
+    background-color: #1485FD;
+}
+
+.zk-radio:checked:before {
+    border-color: #1485FD;
+}
+
 // 单行文字省略
 .one-ellipsis {
     white-space: nowrap;
@@ -200,11 +292,12 @@ input[type="number"] {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+
     // 解决padding会显示文字的bug
     &::after {
         position: absolute;
         content: '';
-        height: 1px;
+        height: 5px;
         bottom: 0px;
         left: 0px;
         right: 0px;

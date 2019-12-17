@@ -8,9 +8,9 @@ import 'vant/lib/index.css';
 
 Vue.use(Vant);
 Vue.use(Lazyload);
-// import filters from './filters' // 全局过滤器
+import * as filters from './filters' // 全局过滤器
 // // 全局过滤器
-// Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
+Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

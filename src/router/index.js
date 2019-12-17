@@ -6,7 +6,14 @@ const router = new Router({
   routes: [
 
     // 重定向
-    { path: '/', redirect: '/home' },
+    { path: '/', redirect: '/login' },
+    {
+      // 登录
+      path: '/login',
+      name: 'login',
+      meta: { id: 1, title: '登录',isShowFooter:false },
+      component: () => import('@/views/login/index')
+    },
     {
       // 首页
       path: '/home',
@@ -30,10 +37,10 @@ const router = new Router({
     },
     {
       // 购物车
-      path: '/shoppingCart',
-      name: 'shoppingCart',
-      meta: { id: 3, title: '订单',isShowFooter:true },
-      component: () => import('@/views/shoppingCart')
+      path: '/cart',
+      name: 'cart',
+      meta: { id: 3, title: '购物车',isShowFooter:true },
+      component: () => import('@/views/cart/index')
     },
     {
       // 我的

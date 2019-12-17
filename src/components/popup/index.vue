@@ -1,7 +1,7 @@
 <template>
   <div class="popup" :class="popupClass">
     <!-- 遮罩层 -->
-    <div class="mask"></div>
+    <div class="mask" @touchumove.prevent></div>
     <div class="layer">
       <slot></slot>
     </div>

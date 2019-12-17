@@ -10,7 +10,7 @@
  * **字符串yyyymmdd转日期格式yyyy - mm - dd（20180210要变成2018 - 02 - 10）** <br/>
  * @returns {date}
 */
-exports.ToyyyyMMdd = (setDate) => {
+const ToyyyyMMdd = (setDate) => {
   let newDate = setDate.substr(0, 10)
   if (setDate.length === 8) {
     let newDate = setDate.substring(0, 4) + '-' + setDate.substring(4, 6) + '-' + setDate.substring(6, 8)
@@ -26,10 +26,11 @@ exports.ToyyyyMMdd = (setDate) => {
  * **将格式化数字三位加一逗号带两位小数** <br/>
  * @returns {Number}
 */
-exports.FormatMoney = (s) => {
+const FormatMoney = (s) => {
   if (!s) {
     return "0.00"
   }
+  s=s/100  //分
   s = parseFloat((s + '').replace(/[^\d\.-]/g, '')).toFixed(2) + ''
   var l = s.split('.')[0].split('').reverse(), r = s.split('.')[1]
   let t = ''
@@ -43,7 +44,7 @@ exports.FormatMoney = (s) => {
  * **根据时间返回早上，中午，下午，晚上** <br/>
  * @returns {Number}
 */
-exports.FormatMorning = (h) => {
+const FormatMorning = (h) => {
   if (5 < h && h < 12) {
     return "早上好！"
   } else if (11 < h && h < 15) {
@@ -61,7 +62,7 @@ exports.FormatMorning = (h) => {
  * **根据时间返回早上，中午，下午，晚上** <br/>
  * @returns {Number}
 */
-exports.FormatOrderState = (s) => {
+const FormatOrderState = (s) => {
   switch (s) {
     case 'SHALL_PAID_DEPOSIT':
       return '待付押金'
@@ -89,4 +90,10 @@ exports.FormatOrderState = (s) => {
     return '无'
       break;
   }
+}
+export {
+  ToyyyyMMdd,
+  FormatMoney,
+  FormatMorning,
+  FormatOrderState
 }

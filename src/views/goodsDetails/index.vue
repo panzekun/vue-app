@@ -2,8 +2,13 @@
   <div class="Router">
     <div class="goodsDetails">
       <header>
-        <div class="before"></div>
-        <div class="after"></div>
+        <div class="before" @click="goToback">
+          <van-icon name="arrow-left" />
+        </div>
+        <div class="after">
+          <van-icon name="more-o" />
+          <van-icon name="shopping-cart-o" @click="goTocart" />
+        </div>
       </header>
       <!-- 轮播图 -->
       <div class="swiper">
@@ -190,6 +195,12 @@
     },
     mounted() {},
     methods: {
+      goTocart() {
+        this.$router.push('/cart');
+      },
+      goToback() {
+        this.$router.go(-1);
+      },
       //跳转评论列表
       showComments() {
         this.$toast("跳转评论列表");
@@ -244,6 +255,42 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch; //ios允许独立的滚动区域和触摸回弹
       background-color: #eee;
+      header {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        z-index: 999;
+        .before {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 66px;
+          height: 66px;
+          border-radius: 50%;
+          background-color: rgba(0, 0, 0, 0.2);
+          font-size: 46px;
+          color: #fff;
+        }
+        .after {
+          width: 140px;
+          display: flex;
+          justify-content: space-between;
+          > i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.2);
+            font-size: 46px;
+            color: #fff;
+          }
+        }
+      }
       .swiper {
         position: relative;
         width: 100%;

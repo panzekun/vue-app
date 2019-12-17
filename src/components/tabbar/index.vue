@@ -41,7 +41,7 @@
           },
           {
             id: 3,
-            path: "/shoppingCart",
+            path: "/cart",
             title: "购物车",
             icon: "shopping-cart",
             normal: require("@i/tab-cart.png"),

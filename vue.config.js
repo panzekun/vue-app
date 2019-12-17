@@ -64,6 +64,7 @@ module.exports = {
     } else { // 生产环境配置
     }
   },
+  
   pwa: {// favicon.ico 图标配置项
     iconPaths: {
       favicon32: 'favicon.ico',

@@ -216,5 +216,36 @@ export function objectKeyValua(obj1, obj2) {
   Object.keys(obj1).forEach(key => { obj1[key] = obj2[key] })
   return obj1
 }
+/**
+ * **防抖** <br/>
+*/
+export function debounce(fn, delay) {
+  let timer = null;
+  return function () {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, arguments);
+    }, delay);
+  }
+}
 
-
+/**
+ * **节流** <br/>
+*/
+export function throttle(fn, cycle) {
+  let start = Date.now();
+  let now;
+  let timer;
+  return function () {
+    now = Date.now();
+    clearTimeout(timer);
+    if (now - start >= cycle) {
+      fn.apply(this, arguments);
+      start = now;
+    } else {
+      timer = setTimeout(() => {
+        fn.apply(this, arguments);
+      }, cycle);
+    }
+  }
+}
