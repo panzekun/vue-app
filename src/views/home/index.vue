@@ -221,6 +221,7 @@
       };
     },
     created() {
+      // this.$loading.show(); // 显示loading
       //开启定时器
       this.Timer();
       this.loadPromotion();
@@ -375,6 +376,7 @@
       toPromotion(row) {},
       async toCategory(row) {
         const res = await this.getSwierList();
+        this.$loading.hide(); // 隐藏loading
         console.log("数据回来了");
         console.log(res);
         this.$toast(`点击了${row.name}`);

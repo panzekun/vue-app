@@ -8,6 +8,10 @@ import 'vant/lib/index.css';
 
 Vue.use(Vant);
 Vue.use(Lazyload);
+
+import loading from './utils/loading.js' // 引入loading
+Vue.use(loading) // 全局使用loading
+
 import * as filters from './filters' // 全局过滤器
 // // 全局过滤器
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))

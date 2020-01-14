@@ -47,7 +47,7 @@ module.exports = {
       }
     })
 
-    if (isProduction) { // 开发环境配置
+    if (isProduction) { // 生产环境配置
       config.plugins.push(
         //生产环境自动删除console
         new UglifyJsPlugin({
@@ -61,7 +61,7 @@ module.exports = {
           parallel: true,
         })
       );
-    } else { // 生产环境配置
+    } else { // 开发环境配置
     }
   },
   
