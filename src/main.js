@@ -9,7 +9,7 @@ import 'vant/lib/index.css';
 Vue.use(Vant);
 Vue.use(Lazyload);
 
-import loading from './utils/loading.js' // 引入loading
+import loading from './components/loading/loading.js' // 引入loading
 Vue.use(loading) // 全局使用loading
 
 import * as filters from './filters' // 全局过滤器
@@ -31,5 +31,6 @@ console.log(process.env.VUE_APP_URL);
 new Vue({
   store,
   router,
+  
   render: h => h(App)
 }).$mount('#app')

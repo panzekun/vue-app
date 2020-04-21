@@ -42,6 +42,9 @@
           </div>
           <div class="text">{{ row.name }}</div>
         </div>
+        <!-- <van-tabs sticky > 
+            <van-tab v-for="index in 4" :title="'选项 ' + index">内容 {{ index }}</van-tab>
+        </van-tabs>-->
       </div>
       <!-- 广告图 -->
       <div class="banner">
@@ -225,6 +228,7 @@
       //开启定时器
       this.Timer();
       this.loadPromotion();
+      this.getSwierList();
 
       console.log("测试取消console");
     },
@@ -376,7 +380,6 @@
       toPromotion(row) {},
       async toCategory(row) {
         const res = await this.getSwierList();
-        this.$loading.hide(); // 隐藏loading
         console.log("数据回来了");
         console.log(res);
         this.$toast(`点击了${row.name}`);
@@ -512,8 +515,6 @@
     }
     .category-list {
       position: relative;
-      width: 92%;
-      margin: 0 4%;
       padding: 0 0 30px 0;
       border-bottom: solid 2px #f6f6f6;
       display: flex;

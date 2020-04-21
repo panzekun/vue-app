@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import loadingComponent from '@/components/loading/index'
-
+// 创建构造器
 const LoadingConstructor = Vue.extend(loadingComponent)
 
 const instance = new LoadingConstructor({

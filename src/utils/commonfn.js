@@ -1,4 +1,3 @@
-import { provinceList, cityList, areaList } from '@/data/area'
 
 
 

@@ -3,6 +3,8 @@ import router from '@/router'
 import Vue from 'vue';
 import { Toast } from 'vant';
 Vue.use(Toast);
+import loading from '../components/loading/loading.js' // 引入loading
+Vue.use(loading) // 全局使用loading
 // 全局设置头部信息
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 // // 请求超时
@@ -28,7 +30,7 @@ service.interceptors.request.use(
     // config.headers.Authorization = mytoken
     // config.headers.Token = mytoken
     // }
-    // console.log(config);
+    Vue.$loading.show(); // 显示loading
     return config
   },
   error => {
@@ -70,6 +72,7 @@ export default function request(url, data = {}, method = 'post') {
     }
     service(options)
       .then(res => {
+        Vue.$loading.hide(); // 影藏loading
         // console.log('返回数据', res)
         if (!res.success) {
           Toast.fail('网络错误，请稍后再试');
@@ -79,6 +82,7 @@ export default function request(url, data = {}, method = 'post') {
 
       })
       .catch(error => {
+        Vue.$loading.hide(); // 影藏loading
         reject()
         console.error(error)
       })
