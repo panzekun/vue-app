@@ -258,7 +258,6 @@ export default {
         this.$toast("加载成功");
         // 加载状态结束
         this.loading = false;
-
         if (this.productList.length >= 20) {
           this.$toast("没有更多数据了");
           // 数据全部加载完成
