@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import PDF from "pdfjs-dist";
+  console.log('引入PDF',PDF);
   import Tabbar from "@/components/tabbar/index";
   // 软键盘关闭事件
   document.body.addEventListener("focusout", () => {
@@ -23,7 +25,7 @@
       return {
         keepAlive: "main-keep-alive", //需要缓存的页面 例如首页
         transitionName: "slide-left", //初始过渡动画方向
-        isShowFooter: true //是否显示底部导航
+        isShowFooter: true, //是否显示底部导航
       };
     },
     watch: {
@@ -37,9 +39,9 @@
         }
         this.$router.isBack = false;
         this.isShowFooter = to.meta.isShowFooter || false;
-      }
+      },
     },
-    mounted() {}
+    mounted() {},
   };
 </script>
 
@@ -48,7 +50,8 @@
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     // min-height: 100%;
     margin: auto;
     position: relative;
@@ -56,8 +59,7 @@
     .Router {
       position: absolute; //解决滑动出现白屏的问题
       width: 100%;
-      height: auto;
-      // height: calc(1334px - 102px);
+      height: 100%;
       top: 0;
       transition: all 0.35s ease;
       will-change: transform;

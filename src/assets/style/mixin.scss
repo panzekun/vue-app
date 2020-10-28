@@ -1,0 +1,425 @@
+//----------------------------   1. 布局  ---------------------
+// @include fixed 使用
+// 固定定位, 兼容IE6
+@mixin fixed {
+  position: fixed;
+  _position: absolute;
+  *zoom: 1;
+}
+
+// 水平竖直方向居中-translate
+@mixin center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+// 水平竖直方向居中-flex
+@mixin flex-center() {
+  @include flex;
+  align-items: center;
+  justify-content: center;
+}
+
+//水平竖直方向居中-margin
+@mixin know-center($w, $h) {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -($w/2);
+  margin-top: -($h/2);
+}
+
+// 吸顶导航
+@mixin fix-header($h: 70px) {
+  @include fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $h;
+  z-index: 1000;
+}
+
+// 吸底导航
+@mixin fix-footer($h: 70px) {
+  @include fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: $h;
+  z-index: 1000;
+}
+
+// 浮动, 兼容 IE6
+@mixin fl {
+  float: left;
+  *display: inline;
+  _display: inline;
+}
+
+@mixin fr {
+  float: right;
+  *display: inline;
+  _display: inline;
+}
+
+// 清除浮动
+@mixin clearfix {
+  *zoom: 1;
+
+  &:after {
+    content: "";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+  }
+}
+
+// 弹性盒
+@mixin flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+// IE盒模型
+@mixin border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// 尺寸
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+// 最小尺寸, 兼容IE6
+@mixin min-width($min-w) {
+  min-width: $min-w;
+  _width: $min-w;
+}
+
+@mixin min-height($min-h) {
+  min-height: $min-h;
+  _height: $min-h;
+}
+
+// 全屏大图背景
+@mixin fullscreen-bg($url) {
+  width: 100vw;
+  height: 100vh;
+  background: url($url) no-repeat 50% 50%;
+  background-size: cover;
+}
+
+//扩展点击区域(多用于移动端)
+@mixin extend-click() {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+  }
+}
+
+// ----------------------------  2. 文本  ---------------------
+
+// 禁止文本被选择
+@mixin user-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+// 文本居中
+@mixin center($height:100%) {
+  height: $height;
+  line-height: $height;
+  text-align: center
+}
+
+// 字体大小颜色
+@mixin FontSiCo ($size:12px, $color:#333) {
+  font-size: $size;
+  color: $color
+}
+
+// 字体小于12px的方法
+@mixin smallFont ($scale) {
+  -webkit-transform-origin: 0% 0%;
+  -webkit-transform: scale($scale);
+}
+
+/**
+* 文字超出显示省略号
+* @param {Number} 行数
+*/
+@mixin ellipsis($rowCount: 1) {
+  @if $rowCount <=1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @else {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $rowCount;
+    -webkit-box-orient: vertical;
+  }
+}
+
+// 美化文本选中 ::selection
+@mixin beauty-select($color, $bgcolor) {
+  &::selection {
+    color: $color;
+    background-color: $bgcolor;
+  }
+}
+
+// 美化占位符 placeholder 样式
+@mixin beauty-placeholder($fz, $color: #999, $align: left) {
+  &:-moz-placeholder {
+    font-size: $fz;
+    color: $color;
+    text-align: $align;
+  }
+
+  &:-ms-input-placeholder {
+    font-size: $fz;
+    color: $color;
+    text-align: $align;
+  }
+
+  &::-webkit-input-placeholder {
+    font-size: $fz;
+    color: $color;
+    text-align: $align;
+  }
+}
+
+// 隔行换色
+@mixin zebra-lists($evenColor, $evenBgColor, $oddColor, $oddBgColor) {
+  &:nth-child(2n) {
+    color: $evenColor;
+    background-color: $evenBgColor;
+  }
+
+  &:nth-child(2n + 1) {
+    color: $oddColor;
+    background-color: $oddBgColor;
+  }
+}
+
+// 首字下沉
+@mixin first-letter($font-size: 6em) {
+  &::first-letter {
+    float: left;
+    line-height: 1;
+    font-size: $font-size;
+  }
+}
+
+//----------------------------   3. 图片  ---------------------
+
+// 滤镜: 将彩色照片显示为黑白照片、保留图片层次
+@mixin grayscale {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+// 模糊  毛玻璃效果
+@mixin blur($blur: 10px) {
+  -webkit-filter: blur($blur);
+
+  -moz-filter: blur($blur);
+  -o-filter: blur($blur);
+  -ms-filter: blur($blur);
+  filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='${blur}');
+  filter: blur($blur);
+  *zoom: 1;
+}
+
+// 不同分辨率图片
+@mixin bg-image($url) {
+  background-image: url($url + "@2x.png");
+
+  @media (-webkit-min-device-pixel-ratio: 3),
+  (min-device-pixel-ratio: 3) {
+    background-image: url($url + "@3x.png");
+  }
+}
+
+// 鼠标禁用样式，但仍然可以触发事件
+@mixin disabled {
+  cursor: not-allowed;
+}
+
+//----------------------------   4.图形  ---------------------
+
+// 三角形
+@mixin triangle($width: 4px, $color: #000) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-top: $width solid $color;
+  border-left: $width solid transparent;
+  border-right: $width solid transparent;
+}
+
+// 伪元素0.5边框实现
+@mixin border-1px($directional: 'bottom', $color: #333) {
+  position: absolute;
+  content: "";
+  background: $color;
+
+  @if $directional=='top' {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform: scaleY(.5);
+  }
+
+  @if $directional=='bottom' {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform: scaleY(.5);
+  }
+
+  @if $directional=='left' {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    transform: scaleX(.5);
+  }
+
+  @if $directional=='right' {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    transform: scaleX(.5);
+  }
+}
+
+//点击显示小手
+@mixin pointer {
+  cursor: pointer;
+}
+
+/**
+* 真.1px边框
+* {List}: 多个方向边框, 默认值为bottom, 你可以根据需要传入(top, left, bottom, right) 4个方向;
+* {Color} 边框的颜色, 默认#ccc;
+* {List} 4个圆角半径, 默认0;
+* {String} 一个高级设置, 一般都不需要改动, 由于细边框的实现使用了css的伪类, 所以为了规避可能出现的样式冲突, 我们可以自己指定使用:after还是:before, 默认after;
+*/
+@mixin thinBorder($directionMaps: bottom,
+  $color: #ccc,
+  $radius: (0,
+    0,
+    0,
+    0),
+  $position: after) {
+  // 是否只有一个方向
+  $isOnlyOneDir: string==type-of($directionMaps);
+
+  @if ($isOnlyOneDir) {
+    $directionMaps: ($directionMaps);
+  }
+
+  @each $directionMap in $directionMaps {
+    border-#{$directionMap}: 1px solid $color;
+  }
+
+  // 判断圆角是list还是number
+  @if (list==type-of($radius)) {
+    border-radius: nth($radius, 1) nth($radius, 2) nth($radius, 3) nth($radius, 4);
+  }
+
+  @else {
+    border-radius: $radius;
+  }
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    & {
+      position: relative;
+
+      // 删除1像素密度比下的边框
+      @each $directionMap in $directionMaps {
+        border-#{$directionMap}: none;
+      }
+    }
+
+    &:#{$position} {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 200%;
+      height: 200%;
+      transform: scale(0.5);
+      box-sizing: border-box;
+      padding: 1px;
+      transform-origin: 0 0;
+      pointer-events: none;
+      border: 0 solid $color;
+
+      @each $directionMap in $directionMaps {
+        border-#{$directionMap}-width: 1px;
+      }
+
+      // 判断圆角是list还是number
+      @if (list==type-of($radius)) {
+        border-radius: nth($radius, 1) * 2 nth($radius, 2) * 2 nth($radius, 3) * 2 nth($radius, 4) * 2;
+      }
+
+      @else {
+        border-radius: $radius * 2;
+      }
+    }
+  }
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+    &:#{$position} {
+
+      // 判断圆角是list还是number
+      @if (list==type-of($radius)) {
+        border-radius: nth($radius, 1) * 3 nth($radius, 2) * 3 nth($radius, 3) * 3 nth($radius, 4) * 3;
+      }
+
+      @else {
+        border-radius: $radius * 3;
+      }
+
+      width: 300%;
+      height: 300%;
+      transform: scale(0.3333);
+    }
+  }
+}

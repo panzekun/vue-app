@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// import VueRouter  from 'vue-router'  也可以
 
 Vue.use(Router)
 const router = new Router({
@@ -41,6 +42,13 @@ const router = new Router({
       name: 'cart',
       meta: { id: 3, title: '购物车', isShowFooter: true },
       component: () => import('@/views/cart/index')
+    },
+    {
+      // 我的
+      path: '/list',
+      name: 'List',
+      meta: { id: 46, title: '虚拟列表', isShowFooter: false },
+      component: () => import('@/views/List/index')
     },
     {
       // 我的
