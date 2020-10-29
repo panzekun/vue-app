@@ -167,6 +167,7 @@ class Build {
     this.targetEnv = this.selectedEnv[0]
     if (shell.exec(`npm run ${this.targetEnv.cmd}`).code !== 0) shell.exit(1)
   }
+  
 }
 
 new Build()
