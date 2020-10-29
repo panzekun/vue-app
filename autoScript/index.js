@@ -35,6 +35,10 @@ class Build {
   }
   /* 分支比较 */
   beforeBuild() {
+    const index = shell.exec(`git status`, {
+      silent: true
+    }).stdout.replace(/[\r\n]/g, '').indexOf('modified')
+    if (index > 0) return console.log(chalk.bgHex('#FF0000').underline('---请先提交代码---'));
     /*  获取当前分支名 */
     const branchObj = shell.exec(`git symbolic-ref --short -q HEAD`, {
       // silent: Do not echo program output to console (default: false)
