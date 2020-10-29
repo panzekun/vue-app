@@ -41,8 +41,6 @@ export default {
       verifyRes: null,
     }
   },
-  created() {},
-  mounted() {},
   methods: {
     handleSubmit() {
       API.getSwierList().then((res) => {
