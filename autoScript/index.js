@@ -177,9 +177,69 @@ class Build {
     // 切换分支并更新代码
     shell.exec(`git checkout ${this.targetEnv.branch}`)
     shell.exec(`git pull origin ${this.targetEnv.branch}`) //更新一下，防止不是最新的代码
-    // 递归删除除了healthcheck.html的所有文件(参数2可以是个数组)
     shell.cp('-r', 'dist/*', `${this.projectName}`) // 复制粘贴文件
-    shell.rm('-r', 'dist');
+    shell.rm('-r', 'dist'); //删除文件
+  }
+  /* 修改版本号 */
+  async editVersion() {
+    const {
+      stdout
+    } = shell.cat(`${this.projectName}/healthcheck.html`)
+    const str = stdout
+      .split('<br/>')
+      .find(item => item.includes('project.version'))
+      .split('=')[1]
+      .trim()
+    const arr = str
+      .replace('v', '')
+      .split('.')
+      .map(v => Number(v))
+    let newStr = ''
+    switch (this.versionRule) {
+      case 'a':
+        newStr = `v${arr[0] + 1}.0.0`
+        break
+      case 'b':
+        newStr = `v${arr[0]}.${arr[1] + 1}.0`
+        break
+      case 'c':
+        newStr = `v${arr[0]}.${arr[1]}.${arr[2] + 1}`
+        break
+      case 'none':
+        newStr = `v${arr[0]}.${arr[1]}.${arr[2]}`
+        break
+      default: {
+        const promptList = [{
+          type: 'input',
+          message: '请输入版本号,如1.0.0',
+          name: 'version',
+          suffix: `当前版本号v${arr[0]}.${arr[1]}.${arr[2]}`,
+          validate: function (val) {
+            return val.trim() ? true : '请输入版本号'
+          }
+        }]
+        const {
+          version
+        } = await inquirer.prompt(promptList)
+        newStr = `v${version}`
+      }
+    }
+    const [file] = shell.ls(`${this.projectName}/healthcheck.html`)
+
+    shell.sed('-i', str, newStr, file)
+    this.runGit()
+  }
+  /* 推送到远程 */
+  async runGit() {
+    const name = this.targetEnv.name
+    const remarks = this.remarks.replace('“环境名”', name)
+    shell.exec('git add .')
+    shell.exec(`git commit -m "${remarks}(${this.branchName})(${this.commitId})"`)
+    shell.exec(`git push origin ${this.targetEnv.branchName}`)
+    shell.exec(`git checkout ${this.branchName}`)
+    console.log(chalk.green(`${name}构建成功`))
+    this.targetEnvList.shift()
+    this.runBuild()
   }
 }
 
