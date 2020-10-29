@@ -13,6 +13,7 @@ class Build {
     //环境
     this.envList = [];
     this.selectedEnv = null;
+    this.ENV = null;
     this.versionRule = null;
     this.remarks = null;
     this.initEnvList()
@@ -78,7 +79,8 @@ class Build {
   }
   /* 选择版本 */
   async chooseVersion() {
-    if (this.selectedEnv[0].branch === "dev") return this.chooseCommit()
+    this.ENV = this.selectedEnv[0].branch
+    if (this.ENV === "dev") return this.chooseCommit()
     const promptList = [{
       type: 'list',
       message: '请选择版本和版本规则：',
@@ -175,8 +177,8 @@ class Build {
   /* 切换分支 */
   switchBranch() {
     // 切换分支并更新代码
-    shell.exec(`git checkout ${this.targetEnv.branch}`)
-    shell.exec(`git pull origin ${this.targetEnv.branch}`) //更新一下，防止不是最新的代码
+    shell.exec(`git checkout ${ this.ENV}`)
+    shell.exec(`git pull origin ${ this.ENV}`) //更新一下，防止不是最新的代码
     shell.cp('-r', 'dist/*', `${this.projectName}`) // 复制粘贴文件
     // shell.rm('-r', 'dist/*'); //删除文件
     this.editVersion()
