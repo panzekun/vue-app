@@ -167,7 +167,15 @@ class Build {
     this.targetEnv = this.selectedEnv[0]
     if (shell.exec(`npm run ${this.targetEnv.cmd}`).code !== 0) shell.exit(1)
   }
-  
+  /* 切换分支 */
+  switchBranch() {
+    // 切换分支并更新代码
+    shell.exec(`git checkout ${this.targetEnv.branch}`)
+    shell.exec(`git pull origin ${this.targetEnv.branch}`) //更新一下，防止不是最新的代码
+    // 递归删除除了healthcheck.html的所有文件(参数2可以是个数组)
+    shell.rm('-r', `${this.projectName}/!(healthcheck.html)*`)
+    shell.cp('-r', 'dist/*', `${this.projectName}`) // 复制粘贴文件
+  }
 }
 
 new Build()
