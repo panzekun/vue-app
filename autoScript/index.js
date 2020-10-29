@@ -122,7 +122,7 @@ class Build {
         type: 'list',
         message: '请选择git commit的备注：',
         name: 'remarks',
-        choices: [`${order.name} ${this.branchName}发版`, '自定义']
+        choices: [`${order.name} ${this.ENV}发版`, '自定义']
       },
       {
         type: 'input',
