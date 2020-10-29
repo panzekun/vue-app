@@ -178,7 +178,8 @@ class Build {
     shell.exec(`git checkout ${this.targetEnv.branch}`)
     shell.exec(`git pull origin ${this.targetEnv.branch}`) //更新一下，防止不是最新的代码
     shell.cp('-r', 'dist/*', `${this.projectName}`) // 复制粘贴文件
-    shell.rm('-r', 'dist/*'); //删除文件
+    // shell.rm('-r', 'dist/*'); //删除文件
+    this.editVersion()
   }
   /* 修改版本号 */
   async editVersion() {
