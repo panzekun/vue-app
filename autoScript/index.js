@@ -178,7 +178,7 @@ class Build {
     shell.exec(`git checkout ${this.targetEnv.branch}`)
     shell.exec(`git pull origin ${this.targetEnv.branch}`) //更新一下，防止不是最新的代码
     shell.cp('-r', 'dist/*', `${this.projectName}`) // 复制粘贴文件
-    shell.rm('-r', 'dist'); //删除文件
+    shell.rm('-r', 'dist/*'); //删除文件
   }
   /* 修改版本号 */
   async editVersion() {
@@ -233,7 +233,7 @@ class Build {
   async runGit() {
     const name = this.targetEnv.name
     const remarks = this.remarks.replace('“环境名”', name)
-    shell.exec('git add .')
+    shell.exec('git add -A')
     shell.exec(`git commit -m "${remarks}(${this.branchName})(${this.commitId})"`)
     shell.exec(`git push origin ${this.targetEnv.branchName}`)
     shell.exec(`git checkout ${this.branchName}`)

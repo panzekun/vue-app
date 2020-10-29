@@ -7,12 +7,12 @@ module.exports = {
   },
   //工单
   order: {
-    name: '自动化打包push',
+    name: '测试自动push代码',
     branch: 'reset',
     value: [
       {
         key: '工单号',
-        describe: '自动化打包push'
+        describe: '测试自动push代码'
       }
     ]
   }
