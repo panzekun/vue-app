@@ -144,12 +144,12 @@ class Build {
       message: '请再次确认信息是否正确',
       name: 'is',
       choices: [{
-          name: '否, 重新选择',
-          value: false
-        },
-        {
           name: '是, 开始构建',
           value: true
+        },
+        {
+          name: '否, 重新选择',
+          value: false
         }
       ]
     }]
@@ -162,7 +162,7 @@ class Build {
     if (this.selectedEnv.length <= 0) {
       return console.log(chalk.green('所有任务构建成功'))
     } else {
-      console.log(chalk.blue('开始构建'))
+      console.log(chalk.blueBright('开始构建'))
     }
     this.targetEnv = this.selectedEnv[0]
     if (shell.exec(`npm run ${this.targetEnv.cmd}`).code !== 0) shell.exit(1)
