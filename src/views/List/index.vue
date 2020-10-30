@@ -10,7 +10,6 @@
 </template>
 
 <script>
-// import VirtualList from '@c/vritual-list/index'
 import VirtualList from '@c/vritual-list/index2.vue'
 import Item from '@c/vritual-list//item'
 
