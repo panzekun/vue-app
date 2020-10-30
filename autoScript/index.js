@@ -12,7 +12,7 @@ class Build {
     this.commitId = null;
     //环境
     this.envList = [];
-    this.selectedEnv = null;
+    this.selectedEnvList = null;
     //推送的分支
     this.pushBranch = null;
     this.versionRule = null;
@@ -75,12 +75,12 @@ class Build {
     const {
       env
     } = await inquirer.prompt(promptList)
-    this.selectedEnv = env
+    this.selectedEnvList = env
     this.chooseVersion()
   }
   /* 选择版本 */
   async chooseVersion() {
-    this.pushBranch = this.selectedEnv[0].branch
+    this.pushBranch = this.selectedEnvList[0].branch
     if (this.pushBranch === "dev") return this.chooseCommit()
     const promptList = [{
       type: 'list',
@@ -166,12 +166,12 @@ class Build {
     is ? this.runBuild() : this.chooseEnv()
   }
   runBuild() {
-    if (this.selectedEnv.length <= 0) {
+    if (this.selectedEnvList.length <= 0) {
       return console.log(chalk.green('所有任务构建成功'))
     } else {
       console.log(chalk.blueBright('开始构建'))
     }
-    this.targetEnv = this.selectedEnv[0]
+    this.targetEnv = this.selectedEnvList[0]
     if (shell.exec(`npm run ${this.targetEnv.cmd}`).code !== 0) shell.exit(1)
     this.switchBranch()
   }
@@ -244,7 +244,7 @@ class Build {
     shell.exec(`git push origin ${this.pushBranch}`)
     //切回原分支
     shell.exec(`git checkout ${this.branchName}`)
-    this.targetEnvList.shift()
+    this.selectedEnvList.shift()
     this.runBuild()
   }
 }
