@@ -13,7 +13,8 @@ class Build {
     //环境
     this.envList = [];
     this.selectedEnv = null;
-    this.ENV = null;
+    //推送的分支
+    this.pushBranch = null;
     this.versionRule = null;
     this.remarks = null;
     this.initEnvList()
@@ -79,8 +80,8 @@ class Build {
   }
   /* 选择版本 */
   async chooseVersion() {
-    this.ENV = this.selectedEnv[0].branch
-    if (this.ENV === "dev") return this.chooseCommit()
+    this.pushBranch = this.selectedEnv[0].branch
+    if (this.pushBranch === "dev") return this.chooseCommit()
     const promptList = [{
       type: 'list',
       message: '请选择版本和版本规则：',
@@ -122,7 +123,7 @@ class Build {
         type: 'list',
         message: '请选择git commit的备注：',
         name: 'remarks',
-        choices: [`${order.name} ${this.ENV}发版`, '自定义']
+        choices: [`${order.name} ${this.pushBranch}发版`, '自定义']
       },
       {
         type: 'input',
@@ -177,8 +178,8 @@ class Build {
   /* 切换分支 */
   switchBranch() {
     // 切换分支并更新代码
-    shell.exec(`git checkout ${ this.ENV}`)
-    shell.exec(`git pull origin ${ this.ENV}`) //更新一下，防止不是最新的代码
+    shell.exec(`git checkout ${ this.pushBranch}`)
+    shell.exec(`git pull origin ${ this.pushBranch}`) //更新一下，防止不是最新的代码
     shell.cp('-r', 'dist/*', `${this.projectName}`) // 复制粘贴文件
     // shell.rm('-r', 'dist/*'); //删除文件
     this.editVersion()
@@ -236,9 +237,11 @@ class Build {
   async runGit() {
     const name = this.targetEnv.name
     const remarks = this.remarks.replace('“环境名”', name)
+    console.log(name,remarks);
+    return
     shell.exec('git add -A')
-    shell.exec(`git commit -m "${remarks}(${this.branchName})(${this.commitId})"`)
-    shell.exec(`git push origin ${this.targetEnv.branchName}`)
+    shell.exec(`git commit -m "${remarks}(${this.pushBranch})(${this.commitId})"`)
+    shell.exec(`git push origin ${this.pushBranch}`)
     shell.exec(`git checkout ${this.branchName}`)
     console.log(chalk.green(`${name}构建成功`))
     this.targetEnvList.shift()
