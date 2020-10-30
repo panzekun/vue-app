@@ -186,6 +186,7 @@ class Build {
   }
   /* 修改版本号 */
   async editVersion() {
+    if (this.pushBranch === "dev") return this.runGit()
     const {
       stdout
     } = shell.cat(`${this.projectName}/healthcheck.html`)
@@ -198,6 +199,7 @@ class Build {
       .replace('v', '')
       .split('.')
       .map(v => Number(v))
+    console.log('arr修改版本号',arr);
     let newStr = ''
     switch (this.versionRule) {
       case 'a':
@@ -237,13 +239,11 @@ class Build {
   async runGit() {
     const name = this.targetEnv.name
     const remarks = this.remarks.replace('“环境名”', name)
-    console.log(name,remarks);
-    return
     shell.exec('git add -A')
-    shell.exec(`git commit -m "${remarks}(${this.pushBranch})(${this.commitId})"`)
+    shell.exec(`git commit -m "${remarks}"`)
     shell.exec(`git push origin ${this.pushBranch}`)
+    //切回原分支
     shell.exec(`git checkout ${this.branchName}`)
-    console.log(chalk.green(`${name}构建成功`))
     this.targetEnvList.shift()
     this.runBuild()
   }
